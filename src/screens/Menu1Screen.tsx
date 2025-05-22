@@ -1,6 +1,6 @@
 import { useTypeNavigation } from '@/shared/hooks/useTypeNavigation';
-import { ScreenWrapper } from '@/shared/ui';
-import { Pressable, Text } from 'react-native';
+import { ScreenWrapper, Typography } from '@/shared/ui';
+import { Pressable } from 'react-native';
 
 export const Menu1Screen: React.FC = () => {
   const navigation = useTypeNavigation();
@@ -8,7 +8,7 @@ export const Menu1Screen: React.FC = () => {
   return (
     <ScreenWrapper>
       <Pressable onPress={() => navigation.navigate('test1')}>
-        <Text className="text-white">Menu1</Text>
+        <Typography color='white' fontSize={20}>Menu1</Typography>
       </Pressable>
     </ScreenWrapper>
   );
