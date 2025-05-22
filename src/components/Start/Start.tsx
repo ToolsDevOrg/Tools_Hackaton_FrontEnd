@@ -2,9 +2,11 @@ import { Image, Pressable, Text, View } from 'react-native';
 import { ArrowSVGStart } from './ArrowStartIcon';
 import { useTypeNavigation } from '@/shared/hooks/useTypeNavigation';
 import { useRoleStore } from '@/app/stores/ruleStore';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export const Start: React.FC = () => {
   const navigation = useTypeNavigation();
+  const { bottom } = useSafeAreaInsets();
 
   const { role } = useRoleStore();
 
@@ -12,7 +14,9 @@ export const Start: React.FC = () => {
 
   return (
     <>
-      <Pressable onPress={() => navigation.goBack()} className="absolute top-[40px] left-[15px]">
+      <Pressable
+        onPress={() => navigation.goBack()}
+        className="absolute top-[40px] left-[15px] w-[20px] h-[20px]">
         <Image
           style={{ width: 10, height: 16 }}
           source={require('../../../assets/ArrowBack.png')}
@@ -39,12 +43,14 @@ export const Start: React.FC = () => {
         <Text className="mt-[8px] text-[#717171]">Войдите в систему</Text>
         <View className="flex-row mt-[20px] bg-[#F2F2F2] rounded-[30px] justify-between p-[6px]">
           <Pressable
-            onPress={() => navigation.navigate('main')}
+            onPress={() => navigation.reset({ index: 0, routes: [{ name: 'login' }] })}
             className="w-[130px] h-[40px] rounded-[40px] flex-row justify-center items-center bg-[#fff] gap-[5px]">
             <Text>Войти</Text>
             <ArrowSVGStart />
           </Pressable>
-          <Pressable className="w-[130px] h-[40px] flex-row justify-center items-center">
+          <Pressable
+            onPress={() => navigation.reset({ index: 0, routes: [{ name: 'register' }] })}
+            className="w-[130px] h-[40px] flex-row justify-center items-center">
             <Text>Регистрация</Text>
           </Pressable>
         </View>
@@ -56,6 +62,12 @@ export const Start: React.FC = () => {
           resizeMode="contain"
         />
       </View>
+      <Text
+        style={{ paddingBottom: bottom + 10 }}
+        className="absolute bottom-0 text-[14px] text-[#656972] text-center">
+        Нажимая “Регистрация” вы принимате условия <Text className='font-[600] underline'>Пользовательского соглашения</Text> и{' '}
+        <Text className='font-[600] underline'>Политики кофиденциальности,</Text> а также разрешаете обработку своих данных
+      </Text>
     </>
   );
 };

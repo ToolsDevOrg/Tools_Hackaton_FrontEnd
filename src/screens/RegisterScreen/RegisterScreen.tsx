@@ -1,19 +1,19 @@
-import { ScreenWrapper } from "@/shared/ui";
-import { CustomInput, InputProps } from "@/shared/ui/CustomInput/CustomInput";
-import { View, Pressable, Text } from "react-native";
-import { InnIcon, PhoneIcon, ProfileIcon } from "./icons";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { useState } from "react";
-import { useTypeNavigation } from "@/shared/hooks/useTypeNavigation";
-import { LinesIcon, LoginIcon, PasswordIcon, UjinLogo } from "../loginScreen/icons";
+import { ScreenWrapper } from '@/shared/ui';
+import { CustomInput, InputProps } from '@/shared/ui/CustomInput/CustomInput';
+import { View, Pressable, Text } from 'react-native';
+import { InnIcon, PhoneIcon, ProfileIcon } from './icons';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useState } from 'react';
+import { useTypeNavigation } from '@/shared/hooks/useTypeNavigation';
+import { LinesIcon, LoginIcon, PasswordIcon, UjinLogo } from '../LoginScreen/icons';
 
 export const RegisterScreen = () => {
   const [formData, setFormData] = useState({
-    fio: "",
-    email: "",
-    jkName: "Москва, ул. Капитана Хакатонова, 2",
-    phone: "",
-    password: "",
+    fio: '',
+    email: '',
+    jkName: 'Москва, ул. Капитана Хакатонова, 2',
+    phone: '',
+    password: '',
   });
 
   const handleInputChange = (name: keyof typeof formData, value: string) => {
@@ -26,47 +26,53 @@ export const RegisterScreen = () => {
   const navigate = useTypeNavigation();
 
   const handleSubmit = () => {
-    navigate.navigate("main");
+    navigate.reset({
+      index: 0,
+      routes: [{ name: 'main' }],
+    });
   };
 
   const handleLogin = () => {
-    navigate.navigate("login");
+    navigate.reset({
+      index: 0,
+      routes: [{ name: 'login' }],
+    });
   };
 
   const inputs: InputProps[] = [
     {
-      placeholder: "ФИО",
+      placeholder: 'ФИО',
       children: <ProfileIcon />,
       value: formData.fio,
-      onChange: (text) => handleInputChange("fio", text),
+      onChange: (text) => handleInputChange('fio', text),
     },
     {
-      placeholder: "Email",
-      type: "email-address",
+      placeholder: 'Email',
+      type: 'email-address',
       children: <LoginIcon />,
       value: formData.email,
-      onChange: (text) => handleInputChange("email", text),
+      onChange: (text) => handleInputChange('email', text),
     },
     {
-      placeholder: "Название ЖК",
+      placeholder: 'Название ЖК',
       children: <InnIcon />,
       editable: false,
       value: formData.jkName,
-      onChange: (text) => handleInputChange("jkName", text),
+      onChange: (text) => handleInputChange('jkName', text),
     },
     {
-      placeholder: "Телефон",
-      type: "phone-pad",
+      placeholder: 'Телефон',
+      type: 'phone-pad',
       children: <PhoneIcon />,
       value: formData.phone,
-      onChange: (text) => handleInputChange("phone", text),
+      onChange: (text) => handleInputChange('phone', text),
     },
     {
-      placeholder: "Пароль",
-      type: "password",
+      placeholder: 'Пароль',
+      type: 'password',
       children: <PasswordIcon />,
       value: formData.password,
-      onChange: (text) => handleInputChange("password", text),
+      onChange: (text) => handleInputChange('password', text),
     },
   ];
 
@@ -77,8 +83,7 @@ export const RegisterScreen = () => {
         extraScrollHeight={10}
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={{ flexGrow: 1 }}
-        style={{ width: "100%" }}
-      >
+        style={{ width: '100%' }}>
         <View className="flex-col justify-between items-center h-[100%] w-[100%]">
           <View className=" w-[100%]">
             <View className=" items-center justify-between flex-row pb-[30px]">
@@ -118,15 +123,13 @@ export const RegisterScreen = () => {
 
               <Text
                 onPress={handleLogin}
-                className="font-[600] text-[14px] leading-[24px] color-[#00C0C9] underline"
-              >
+                className="font-[600] text-[14px] leading-[24px] color-[#00C0C9] underline">
                 Войти
               </Text>
             </View>
             <Pressable
               onPress={handleSubmit}
-              className=" rounded-[30px] bg-[#7979791A] items-center justify-center py-[15px] active:bg-[#00C0C9] transition-[0.3s]"
-            >
+              className=" rounded-[30px] bg-[#7979791A] items-center justify-center py-[15px] active:bg-[#00C0C9] transition-[0.3s]">
               <Text className="font-[600] text-[14px]">Зарегистрироваться</Text>
             </Pressable>
           </View>
