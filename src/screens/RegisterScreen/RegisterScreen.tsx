@@ -1,5 +1,5 @@
 import { ScreenWrapper } from "@/shared/ui";
-import { CustomInput, InputProps } from "@/shared/ui/input/input";
+import { CustomInput, InputProps } from "@/shared/ui/CustomInput/CustomInput";
 import { View, Pressable, Text } from "react-native";
 import {
   UjinLogo,
@@ -10,12 +10,13 @@ import {
 import { InnIcon, PhoneIcon, ProfileIcon } from "./icons";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useState } from "react";
+import { useTypeNavigation } from "@/shared/hooks/useTypeNavigation";
 
 export const RegisterScreen = () => {
   const [formData, setFormData] = useState({
     fio: "",
     email: "",
-    jkName: "",
+    jkName: "Москва, ул. Капитана Хакатонова, 2",
     phone: "",
     password: "",
   });
@@ -27,7 +28,11 @@ export const RegisterScreen = () => {
     }));
   };
 
-  const handleSubmit = () => {};
+  const navigate = useTypeNavigation();
+
+  const handleSubmit = () => {
+    navigate.navigate("main");
+  };
 
   const inputs: InputProps[] = [
     {
@@ -46,6 +51,7 @@ export const RegisterScreen = () => {
     {
       placeholder: "Название ЖК",
       children: <InnIcon />,
+      editable: false,
       value: formData.jkName,
       onChange: (text) => handleInputChange("jkName", text),
     },
@@ -99,6 +105,7 @@ export const RegisterScreen = () => {
                   children={item.children}
                   value={item.value}
                   onChange={item.onChange}
+                  editable={item.editable}
                 />
               ))}
             </View>

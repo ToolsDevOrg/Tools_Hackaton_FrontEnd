@@ -1,7 +1,7 @@
-import { Pressable, Text, View } from "react-native";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { getTabIcon } from "./getTabIcon";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Pressable, Text, View } from "react-native";
 
 export const TabBar: React.FC<BottomTabBarProps> = ({
   state,
@@ -9,11 +9,11 @@ export const TabBar: React.FC<BottomTabBarProps> = ({
   descriptors,
 }) => {
   const pb = useSafeAreaInsets().bottom;
-
   return (
     <View
-      style={{ paddingBottom: pb }}
-      className="flex-row items-center justify-between bg-white px-[9px] pt-[8px]"
+      className={`${"flex-row items-center justify-between bg-white px-[9px] pt-[8px]"} ${
+        pb ? `pb-[${pb}]` : "pb-[5px]"
+      }`}
     >
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
@@ -27,8 +27,8 @@ export const TabBar: React.FC<BottomTabBarProps> = ({
           >
             {getTabIcon(route.name, isActive)}
             <Text
-              className={`${"transition-[0.3s] font-semibold leading-[14px] text-[10px]"}${
-                isActive ? "text-ujin" : "text-tabbarGrey"
+              className={`${"font-[600] text-[10px] leading-[14px]"} ${
+                isActive ? "color-[#00C0C9]" : "color-[#959595]"
               }`}
             >
               {options.title}

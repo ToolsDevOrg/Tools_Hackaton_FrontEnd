@@ -1,8 +1,14 @@
 import Svg, { Path, Rect } from "react-native-svg";
 
-export const UjinLogo = () => {
+export const UjinLogo = ({
+  width = "65",
+  height = "24",
+}: {
+  width?: string;
+  height?: string;
+}) => {
   return (
-    <Svg width="65" height="24" viewBox="0 0 65 24" fill="none">
+    <Svg width={width} height={height} viewBox="0 0 65 24" fill="none">
       <Path
         d="M39.7614 4.83302H36.7345V15.2587H34.0398C32.2408 15.2587 31.0172 14.0327 31.0172 12.2326V7.16119C31.0172 5.87545 29.9755 4.83311 28.6905 4.83311H27.9904V12.2326C27.9904 15.5756 30.6988 18.2857 34.0398 18.2857L39.7614 18.2856V4.83302Z"
         fill="#212121"
