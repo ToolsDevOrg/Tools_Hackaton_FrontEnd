@@ -1,8 +1,11 @@
-import { Image, Text, View } from 'react-native';
+import { useTypeNavigation } from '@/shared/hooks/useTypeNavigation';
+import { Image, Pressable, Text, View } from 'react-native';
 
 export const StructureItem: React.FC = () => {
+  const navigation = useTypeNavigation();
+
   return (
-    <View className="rounded-[20px] border border-[#F2F2F5]">
+    <Pressable onPress={() => navigation.navigate('create_pass')} className="rounded-[20px] border border-[#F2F2F5]">
       <Image
         className="rounded-t-[20px]"
         style={{ width: '100%', height: 125 }}
@@ -15,6 +18,6 @@ export const StructureItem: React.FC = () => {
         </Text>
         <Text className="font-[600] text-[15px] text-[#707579]">08:00 - 22:00</Text>
       </View>
-    </View>
+    </Pressable>
   );
 };

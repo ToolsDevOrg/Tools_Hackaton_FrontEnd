@@ -1,11 +1,10 @@
 import { Pressable, Text, View } from 'react-native';
+import { useTabStore } from './tabs.store';
 
-type TabsProps = {
-  activeTab: 'car' | 'event';
-  setActiveTab: (tab: 'car' | 'event') => void;
-};
 
-export const Tabs: React.FC<TabsProps> = ({ activeTab, setActiveTab }) => {
+export const Tabs: React.FC = () => {
+  const { activeTab, setActiveTab } = useTabStore();
+
   return (
     <View className="mb-[15px] flex-row w-full justify-between items-center gap-[10px]">
       <Pressable
