@@ -3,12 +3,15 @@ import { CustomInput } from "@/shared/ui/input/input";
 import { View, Text, Pressable } from "react-native";
 import { UjinLogo, LinesIcon, LoginIcon, PasswordIcon } from "./icons";
 import { useState } from "react";
+import { useTypeNavigation } from "@/shared/hooks/useTypeNavigation";
 
 export const LoginScreen = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const navigate = useTypeNavigation();
 
   const handleInputChange = (name: keyof typeof formData, value: string) => {
     setFormData((prev) => ({
@@ -17,7 +20,9 @@ export const LoginScreen = () => {
     }));
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    navigate.navigate("main");
+  };
 
   return (
     <ScreenWrapper className=" bg-white">
@@ -69,7 +74,10 @@ export const LoginScreen = () => {
               Зарегистрироваться
             </Text>
           </View>
-          <Pressable className=" rounded-[30px] bg-[#7979791A] items-center justify-center py-[15px] active:bg-[#00C0C9] transition-[0.3s]">
+          <Pressable
+            onPress={handleSubmit}
+            className=" rounded-[30px] bg-[#7979791A] items-center justify-center py-[15px] active:bg-[#00C0C9] transition-[0.3s]"
+          >
             <Text className="font-[600] text-[14px]">Войти</Text>
           </Pressable>
         </View>

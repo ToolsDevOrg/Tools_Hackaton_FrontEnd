@@ -7,6 +7,7 @@ export interface InputProps {
   type?: "default" | "email-address" | "phone-pad" | "password";
   value?: string;
   onChange?: (text: string) => void;
+  editable?: boolean;
 }
 
 export const CustomInput = ({
@@ -14,6 +15,7 @@ export const CustomInput = ({
   placeholder,
   type = "default",
   value,
+  editable,
   onChange,
 }: InputProps) => {
   return (
@@ -27,6 +29,7 @@ export const CustomInput = ({
         className=" h-[100%] w-[100%]"
         value={value}
         onChangeText={onChange}
+        editable={editable}
       />
     </View>
   );

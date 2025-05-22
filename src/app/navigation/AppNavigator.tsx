@@ -6,8 +6,9 @@ import {
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { TabNavigator } from "./TabNavigator";
 import { StartScreen } from "@/screens/StartScreen";
-import { LoginScreen } from "@/screens/LoginScreen/LoginScreen";
 import { RegisterScreen } from "@/screens/RegisterScreen/RegisterScreen";
+import { ChooseScreen } from "@/screens/ChooseScreen/ChooseScreen";
+import { LoginScreen } from "@/screens/LoginScreen/LoginScreen";
 
 export const AppNavigator: React.FC = () => {
   const Stack = createStackNavigator();
@@ -16,7 +17,7 @@ export const AppNavigator: React.FC = () => {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
-      background: '#fff',
+      background: "#fff",
     },
   };
 
@@ -31,6 +32,7 @@ export const AppNavigator: React.FC = () => {
             gestureDirection: "horizontal", // Направление жестов
           }}
         >
+          <Stack.Screen name="choose" component={RegisterScreen} />
           <Stack.Screen name="start" component={StartScreen} />
           <Stack.Screen name="login" component={LoginScreen} />
           <Stack.Screen name="register" component={RegisterScreen} />
