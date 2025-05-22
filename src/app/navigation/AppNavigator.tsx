@@ -32,7 +32,7 @@ export const AppNavigator: React.FC = () => {
             gestureDirection: "horizontal", // Направление жестов
           }}
         >
-          <Stack.Screen name="choose" component={RegisterScreen} />
+          <Stack.Screen name="choose" component={ChooseScreen} />
           <Stack.Screen name="start" component={StartScreen} />
           <Stack.Screen name="login" component={LoginScreen} />
           <Stack.Screen name="register" component={RegisterScreen} />
