@@ -11,12 +11,12 @@ export const AppNavigator: React.FC = () => {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
-      background: '#16171D',
+      background: '#fff',
     },
   };
 
   return (
-    <GestureHandlerRootView>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <NavigationContainer theme={MyTheme}>
         <Stack.Navigator
           screenOptions={{
