@@ -1,15 +1,32 @@
-import { useTypeNavigation } from '@/shared/hooks/useTypeNavigation';
+import { Cars } from '@/components/PassComponents/Cars/Cars';
+import { Events } from '@/components/PassComponents/Events/Events';
+import { Tabs } from '@/components/PassComponents/Tabs/Tabs';
 import { ScreenWrapper } from '@/shared/ui';
-import { Pressable, Text } from 'react-native';
+import { useState } from 'react';
+import { Image, Text, View } from 'react-native';
 
 export const Menu2Screen: React.FC = () => {
-  const navigation = useTypeNavigation();
-  
+  const [activeTab, setActiveTab] = useState<'car' | 'event'>('car');
+
   return (
     <ScreenWrapper>
-      <Pressable onPress={() => navigation.navigate('test2')}>
-        <Text className="text-white">Menu2</Text>
-      </Pressable>
+      <View className="flex-row mb-[15px] items-center justify-between w-full">
+        <View>
+          <Text className="text-black font-[700] text-[24px] mb-[5px]">Пропуск</Text>
+          <Text className="text-[14px] font-[600] text-[#717171]">Закажите доступ</Text>
+        </View>
+        <Image
+          style={{ width: 75, height: 25 }}
+          source={require('../../assets/Logo-Ujin-dark 1.png')}
+        />
+      </View>
+
+      <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
+      <Text className='font-[700] text-[20px] mb-[15px]'>Ваши пропуска</Text>
+
+      {activeTab === 'car' ? <Cars /> : <Events />}
+
+
     </ScreenWrapper>
   );
 };

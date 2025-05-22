@@ -23,7 +23,7 @@ export const Start: React.FC = () => {
       <Text className="mt-[8px] text-[#717171]">Войдите в систему</Text>
       <View className="flex-row mt-[20px] bg-[#F2F2F2] rounded-[30px] justify-between p-[6px]">
         <Pressable
-          onPress={() => navigation.navigate('main', { screen: 'menu1', params: { screen: 'test1' } })}
+          onPress={() => navigation.navigate('main')}
           className="w-[130px] h-[40px] rounded-[40px] flex-row justify-center items-center bg-[#fff] gap-[5px]">
           <Text>Войти</Text>
           <ArrowSVGStart />
