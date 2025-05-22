@@ -8,7 +8,7 @@ import { TabNavigator } from "./TabNavigator";
 import { StartScreen } from "@/screens/StartScreen";
 import { RegisterScreen } from "@/screens/RegisterScreen/RegisterScreen";
 import { ChooseScreen } from "@/screens/ChooseScreen/ChooseScreen";
-import { LoginScreen } from "@/screens/LoginScreen/LoginScreen";
+import { LoginScreen } from "@/screens/LoginScreen/loginScreen";
 
 export const AppNavigator: React.FC = () => {
   const Stack = createStackNavigator();

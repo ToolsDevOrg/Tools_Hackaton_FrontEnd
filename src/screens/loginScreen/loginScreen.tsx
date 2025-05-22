@@ -1,5 +1,5 @@
 import { ScreenWrapper } from "@/shared/ui";
-import { CustomInput } from "@/shared/ui/input/input";
+import { CustomInput } from "@/shared/ui/CustomInput/CustomInput";
 import { View, Text, Pressable } from "react-native";
 import { UjinLogo, LinesIcon, LoginIcon, PasswordIcon } from "./icons";
 import { useState } from "react";
