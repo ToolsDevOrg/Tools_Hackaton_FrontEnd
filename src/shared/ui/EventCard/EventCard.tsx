@@ -69,7 +69,6 @@ export default function EventCard({
             resizeMode="cover"
           />
       </View>
-
       <View style={styles.info}>
         <Text style={styles.title}>{title}</Text>
         <View style={styles.location}>
