@@ -21,11 +21,17 @@ export const LoginScreen = () => {
   };
 
   const handleSubmit = () => {
-    navigate.navigate("main");
+    navigate.reset({
+      index: 0,
+      routes: [{ name: "main" }],
+    });
   };
 
   const handleRegister = () => {
-    navigate.navigate("register");
+    navigate.reset({
+      index: 0,
+      routes: [{ name: "register" }],
+    });
   };
 
   return (

@@ -16,7 +16,7 @@ export const CreatePass: React.FC = () => {
       <KeyboardAwareScrollView enableOnAndroid>
         <View className="flex-row mb-[15px] items-center justify-between w-full">
           <View className="flex-row items-center gap-[20px]">
-            <Pressable onPress={() => navigation.goBack()}>
+            <Pressable className='w-[20px] h-[20px]' onPress={() => navigation.goBack()}>
               <Image
                 style={{ width: 10, height: 16 }}
                 source={require('../../assets/ArrowBack.png')}
