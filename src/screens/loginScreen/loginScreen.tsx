@@ -24,6 +24,10 @@ export const LoginScreen = () => {
     navigate.navigate("main");
   };
 
+  const handleRegister = () => {
+    navigate.navigate("register");
+  };
+
   return (
     <ScreenWrapper className=" bg-white">
       <View className="flex-col justify-between items-center h-[100%] w-[100%]">
@@ -70,7 +74,10 @@ export const LoginScreen = () => {
               Нет аккаунта?
             </Text>
 
-            <Text className="font-[600] text-[14px] leading-[24px] color-[#00C0C9] underline">
+            <Text
+              onPress={handleRegister}
+              className="font-[600] text-[14px] leading-[24px] color-[#00C0C9] underline"
+            >
               Зарегистрироваться
             </Text>
           </View>
