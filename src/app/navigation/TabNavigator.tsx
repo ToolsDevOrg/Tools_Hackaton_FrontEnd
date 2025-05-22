@@ -3,11 +3,11 @@ import { TabBar } from "@/widgets/tab_bar/TabBar";
 import { Menu1Stack } from "../stack/Menu1Stack";
 import { Menu2Stack } from "../stack/Menu2Stack";
 import { Menu3Stack } from "../stack/Menu3Stack";
+import { Menu4Stack } from "../stack/Menu4Stack";
 
 const Tab = createBottomTabNavigator();
 
 export const TabNavigator: React.FC = () => {
-
   return (
     <Tab.Navigator
       screenOptions={{
@@ -32,7 +32,7 @@ export const TabNavigator: React.FC = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={Menu3Stack}
+        component={Menu4Stack}
         options={{ title: "Профиль" }}
       />
     </Tab.Navigator>
