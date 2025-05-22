@@ -34,6 +34,10 @@ export const RegisterScreen = () => {
     navigate.navigate("main");
   };
 
+  const handleLogin = () => {
+    navigate.navigate("login");
+  };
+
   const inputs: InputProps[] = [
     {
       placeholder: "ФИО",
@@ -117,7 +121,10 @@ export const RegisterScreen = () => {
                 Есть аккаунт?
               </Text>
 
-              <Text className="font-[600] text-[14px] leading-[24px] color-[#00C0C9] underline">
+              <Text
+                onPress={handleLogin}
+                className="font-[600] text-[14px] leading-[24px] color-[#00C0C9] underline"
+              >
                 Войти
               </Text>
             </View>
