@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactElement, ReactHTMLElement, ReactNode } from "react";
 import { TextInput, View } from "react-native";
 
 interface InputProps {
@@ -13,7 +13,7 @@ export const CustomInput = ({
   type = "text",
 }: InputProps) => {
   return (
-    <View className="border-[#F2F2F] border-[0.8px] rounded-[20px] gap-[10px] p-[15px]">
+    <View className="border-[#F2F2F2] border-[0.8px] rounded-[20px] gap-[10px] p-[15px] flex-row">
       {children}
 
       {type === "FIO" ? (
@@ -23,7 +23,7 @@ export const CustomInput = ({
           ))}
         </>
       ) : (
-        <TextInput placeholder={placeholder} />
+        <TextInput placeholder={placeholder} className=" h-[100%] w-[100%]" />
       )}
     </View>
   );

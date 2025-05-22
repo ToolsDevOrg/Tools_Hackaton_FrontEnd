@@ -1,7 +1,7 @@
 import { ScreenWrapper } from "@/shared/ui";
 import { CustomInput } from "@/shared/ui/input/input";
-import { LinesIcon, UjinLogo } from "@/widgets/tab_bar/icons";
-import { Button, View, Text, TouchableOpacity } from "react-native";
+import { View, Text, Pressable } from "react-native";
+import { UjinLogo, LinesIcon, LoginIcon, PasswordIcon } from "./icons";
 
 export const LoginScreen = () => {
   return (
@@ -23,22 +23,32 @@ export const LoginScreen = () => {
           </View>
 
           <View className=" flex-col gap-[8px]">
-            <CustomInput placeholder="Email" type="email" />
-            <CustomInput placeholder="Пароль" />
-            <TouchableOpacity>
-              <Text className="font-[600] text-[14px] leading-[24px] color-[#717171] underline underline-offset-[3px]">Забыли пароль?</Text>
-            </TouchableOpacity>
+            <CustomInput
+              placeholder="Email"
+              type="email"
+              children={<LoginIcon />}
+            />
+            <CustomInput placeholder="Пароль" children={<PasswordIcon />} />
+
+            <Text className="font-[600] text-[14px] leading-[24px] color-[#717171] underline ">
+              Забыли пароль?
+            </Text>
           </View>
         </View>
 
-        <View>
-          <View>
-            <Text>Нет аккаунта?</Text>
-            <TouchableOpacity>
-              <Text>Зарегистрироваться</Text>
-            </TouchableOpacity>
+        <View className="flex-col w-[100%] gap-[16px]">
+          <View className="flex-row items-start w-[100%]">
+            <Text className="font-[600] text-[14px] leading-[24px] color-[#717171]">
+              Нет аккаунта?
+            </Text>
+
+            <Text className="font-[600] text-[14px] leading-[24px] color-[#00C0C9] underline">
+              Зарегистрироваться
+            </Text>
           </View>
-          <Button title="Войти" onPress={() => {}} />
+          <Pressable className="border-[1.24px] border-[#C9C9C9] rounded-[30px] bg-[#7979791A] items-center justify-center py-[15px]">
+            <Text className="font-[600] text-[14px]">Войти</Text>
+          </Pressable>
         </View>
       </View>
     </ScreenWrapper>
