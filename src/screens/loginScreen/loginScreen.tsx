@@ -2,8 +2,23 @@ import { ScreenWrapper } from "@/shared/ui";
 import { CustomInput } from "@/shared/ui/input/input";
 import { View, Text, Pressable } from "react-native";
 import { UjinLogo, LinesIcon, LoginIcon, PasswordIcon } from "./icons";
+import { useState } from "react";
 
 export const LoginScreen = () => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleInputChange = (name: keyof typeof formData, value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = () => {};
+
   return (
     <ScreenWrapper className=" bg-white">
       <View className="flex-col justify-between items-center h-[100%] w-[100%]">
@@ -25,10 +40,18 @@ export const LoginScreen = () => {
           <View className=" flex-col gap-[8px]">
             <CustomInput
               placeholder="Email"
-              type="email"
+              type="email-address"
+              value={formData.email}
+              onChange={(text) => handleInputChange("email", text)}
               children={<LoginIcon />}
             />
-            <CustomInput placeholder="Пароль" children={<PasswordIcon />} />
+            <CustomInput
+              placeholder="Пароль"
+              type="password"
+              value={formData.password}
+              onChange={(text) => handleInputChange("password", text)}
+              children={<PasswordIcon />}
+            />
 
             <Text className="font-[600] text-[14px] leading-[24px] color-[#717171] underline ">
               Забыли пароль?
@@ -46,7 +69,7 @@ export const LoginScreen = () => {
               Зарегистрироваться
             </Text>
           </View>
-          <Pressable className="border-[1.24px] border-[#C9C9C9] rounded-[30px] bg-[#7979791A] items-center justify-center py-[15px]">
+          <Pressable className=" rounded-[30px] bg-[#7979791A] items-center justify-center py-[15px] active:bg-[#00C0C9] transition-[0.3s]">
             <Text className="font-[600] text-[14px]">Войти</Text>
           </Pressable>
         </View>
