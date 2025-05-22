@@ -1,16 +1,11 @@
 import { ScreenWrapper } from "@/shared/ui";
 import { CustomInput, InputProps } from "@/shared/ui/CustomInput/CustomInput";
 import { View, Pressable, Text } from "react-native";
-import {
-  UjinLogo,
-  LinesIcon,
-  LoginIcon,
-  PasswordIcon,
-} from "../LoginScreen/icons";
 import { InnIcon, PhoneIcon, ProfileIcon } from "./icons";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useState } from "react";
 import { useTypeNavigation } from "@/shared/hooks/useTypeNavigation";
+import { LinesIcon, LoginIcon, PasswordIcon, UjinLogo } from "../loginScreen/icons";
 
 export const RegisterScreen = () => {
   const [formData, setFormData] = useState({

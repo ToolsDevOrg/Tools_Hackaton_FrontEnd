@@ -1,12 +1,13 @@
 import { Cars } from '@/components/PassComponents/Cars/Cars';
 import { Events } from '@/components/PassComponents/Events/Events';
 import { Tabs } from '@/components/PassComponents/Tabs/Tabs';
+import { useTabStore } from '@/components/PassComponents/Tabs/tabs.store';
 import { ScreenWrapper } from '@/shared/ui';
 import { useState } from 'react';
 import { Image, Text, View } from 'react-native';
 
 export const Menu2Screen: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'car' | 'event'>('car');
+  const { activeTab } = useTabStore();
 
   return (
     <ScreenWrapper>
@@ -21,7 +22,7 @@ export const Menu2Screen: React.FC = () => {
         />
       </View>
 
-      <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
+      <Tabs  />
       <Text className='font-[700] text-[20px] mb-[15px]'>Ваши пропуска</Text>
 
       {activeTab === 'car' ? <Cars /> : <Events />}

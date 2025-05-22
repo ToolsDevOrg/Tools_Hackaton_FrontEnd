@@ -1,6 +1,6 @@
 import { ScreenWrapper } from "@/shared/ui";
 import { Pressable, Text, View } from "react-native";
-import { UjinLogo } from "../LoginScreen/icons";
+import { UjinLogo } from "../loginScreen/icons";
 import { useState } from "react";
 import { useRoleStore } from "@/app/stores/ruleStore";
 import { useTypeNavigation } from "@/shared/hooks/useTypeNavigation";
