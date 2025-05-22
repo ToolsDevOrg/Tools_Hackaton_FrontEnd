@@ -10,6 +10,8 @@ module.exports = {
         'green': '#48D05D',
         'red': '#F34949',
         'blue': '#67ABDC',
+        'ujin': '#00C0C9',
+        'tabbarGrey': '#959595'
       }
     },
   },
