@@ -6,7 +6,7 @@ import {
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { TabNavigator } from "./TabNavigator";
 import { StartScreen } from "@/screens/StartScreen";
-import { LoginScreen } from "@/screens/loginScreen/loginScreen";
+import { LoginScreen } from "@/screens/LoginScreen/loginScreen";
 import { registerScreen } from "@/screens/registerScreen";
 
 export const AppNavigator: React.FC = () => {
