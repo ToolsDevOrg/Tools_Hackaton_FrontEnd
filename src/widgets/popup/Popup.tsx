@@ -4,11 +4,9 @@ import React, { useState } from "react";
 import {
   View,
   Text,
-  TouchableOpacity,
   StyleSheet,
   ScrollView,
   Pressable,
-  FlatList,
 } from "react-native";
 import Modal from "react-native-modal";
 import Svg, { Path } from "react-native-svg";
@@ -27,27 +25,15 @@ const SearchIcon = () => (
 
 export default SearchIcon;
 
-export const Popup = () => {
-  const [visible, setVisible] = useState(true);
+export const Popup = ({view}: {view: boolean}) => {
   const [fullHeight, setFullHeight] = useState(false);
-
+  
   const check = true;
-
-  const openPopup = () => {
-    if (visible) {
-      setVisible(false);
-    } else {
-      setVisible(true);
-    }
-  };
-
+  
   return (
     <>
-      <TouchableOpacity style={styles.openButton} onPress={openPopup}>
-        <Text style={styles.openButtonText}>Открыть окно</Text>
-      </TouchableOpacity>
       <Modal
-        isVisible={visible}
+        isVisible={view}
         animationIn="slideInUp"
         animationOut="slideOutDown"
         backdropOpacity={0}
@@ -55,7 +41,6 @@ export const Popup = () => {
         style={[styles.modal, styles.fullHeigth]}
         swipeDirection={fullHeight ? undefined : "down"}
         hasBackdrop={fullHeight}
-        onSwipeComplete={fullHeight ? undefined : () => setVisible(false)}
       >
         <View
           style={[
@@ -126,7 +111,7 @@ const styles = StyleSheet.create({
   press: {
     width: "100%",
     paddingHorizontal: 5,
-    paddingVertical: 10,
+    paddingVertical: 20,
   },
   buttons: {
     flexDirection: "row",
@@ -166,8 +151,8 @@ const styles = StyleSheet.create({
   },
   fullHeightModalContent: {
     flex: 1,
-    height: "90%",
-    maxHeight: "100%",
+    height: "80%",
+    maxHeight: "80%",
   },
   modalContent: {
     gap: 6,
@@ -178,6 +163,11 @@ const styles = StyleSheet.create({
     zIndex: 3,
     height: "22.8%",
     maxHeight: "22.8%",
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -1 }, 
+    shadowOpacity: 0.25, 
+    shadowRadius: 7, 
+    elevation: 3,
   },
   fullHeigth: {
     height: "auto",
