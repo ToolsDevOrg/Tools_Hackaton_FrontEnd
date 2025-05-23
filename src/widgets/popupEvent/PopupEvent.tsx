@@ -1,17 +1,12 @@
-import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
-  Image,
-  TouchableOpacity
-} from "react-native";
-import Modal from "react-native-modal";
-import Svg, { Circle, Path } from "react-native-svg";
+import React from 'react';
+import { View, Text, StyleSheet, Pressable, Image, TouchableOpacity } from 'react-native';
+import Modal from 'react-native-modal';
+import Svg, { Circle, Path } from 'react-native-svg';
+import { EventType } from './type';
+import { useEventStore } from '@/screens/MapScreen/popup.store';
+import { useTypeNavigation } from '@/shared/hooks/useTypeNavigation';
 
-
-const PeopleIcon = ({ width = 19, height = 14, color = '#00C0C9' }) => {
+export const PeopleIcon = ({ width = 19, height = 14, color = '#00C0C9' }) => {
   return (
     <Svg width={width} height={height} viewBox="0 0 19 14" fill="none">
       <Path
@@ -40,21 +35,14 @@ const PeopleIcon = ({ width = 19, height = 14, color = '#00C0C9' }) => {
   );
 };
 
-
-const CustomIcon = () => (
+export const CustomIcon = () => (
   <Svg width={16} height={18} viewBox="0 0 16 18" fill="none">
     <Path
       opacity="0.3"
       d="M7.99976 0.458984C12.0205 0.459158 15.2908 3.68687 15.2908 7.68164C15.2906 10.1661 13.8419 12.6184 12.3064 14.4033C11.5294 15.3065 10.7047 16.069 9.97729 16.6113C9.61412 16.8821 9.26503 17.106 8.94995 17.2646C8.6547 17.4133 8.31733 17.5419 7.99976 17.542C7.68205 17.542 7.34396 17.4134 7.04858 17.2646C6.73355 17.106 6.38435 16.882 6.02124 16.6113C5.29381 16.069 4.46911 15.3065 3.69214 14.4033C2.15663 12.6184 0.707932 10.1661 0.707764 7.68164C0.707764 3.68676 3.97887 0.458984 7.99976 0.458984Z"
       fill="#00C0C9"
     />
-    <Circle
-      cx={2.5}
-      cy={2.5}
-      r={2.5}
-      transform="matrix(-1 0 0 1 10.4995 4.8335)"
-      fill="#00C0C9"
-    />
+    <Circle cx={2.5} cy={2.5} r={2.5} transform="matrix(-1 0 0 1 10.4995 4.8335)" fill="#00C0C9" />
   </Svg>
 );
 
@@ -71,72 +59,79 @@ const SearchIcon = () => (
 
 export default SearchIcon;
 
-export const PopupEvent = ({view,event, handleClose}: {view: boolean, handleClose: () => void, event: any}) => {
-  const handlePressReg = () => {
+export const PopupEvent = ({
+  view,
+  event,
+  handleClose,
+}: {
+  view: boolean;
+  handleClose: () => void;
+  event: EventType;
+}) => {
+  const { setEvent } = useEventStore();
+  const navigation = useTypeNavigation();
 
-  }
+  const handlePressReg = () => {
+    setEvent(event);
+    navigation.navigate('event_detail')
+    
+  };
 
   return (
     <>
-      {event && <Modal
-        isVisible={view}
-        animationIn="slideInUp"
-        animationOut="slideOutDown"
-        backdropOpacity={0}
-        coverScreen={false}
-        style={[styles.modal]}
-        swipeDirection="down"
-        hasBackdrop={true}
-      >
-        <View
-          style={[
-            styles.modalContent,
-          ]}
-        > 
-          <View style={styles.top}>
-            <Image
-              source={require('./image2.png')}
-              resizeMode="cover"
-              style={styles.image}
-            />
-            <Text style={styles.type} numberOfLines={1} ellipsizeMode="tail">{event.policy_area}</Text>
-            <Image
-              source={require('./logoLight.png')}
-              resizeMode="cover"
-              style={styles.imageLogo}
-            />
-            <Pressable
-              style={styles.press}
-              onPress={handleClose}
-            >
-              <View style={styles.hr} />
-            </Pressable>
-          </View>
-          <View style={styles.wrapperContent}>
-          <View style={styles.info}>
-                  <Text style={styles.title}>{event.title}</Text>
-                  <Text style={styles.date}>{event.date}</Text>
-                  <View style={styles.location}>
-                    <CustomIcon />
-                    <Text style={styles.locationText}>{event.location}</Text>
-                  </View>
-                  <View style={styles.location}>
-                    <PeopleIcon />
-                    <Text style={styles.locationText}>{event.participants} Человек</Text>
-                  </View>
-                  <Text style={styles.textEvent} numberOfLines={1} ellipsizeMode="tail">{event.organizer}</Text>
-                  <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.openButton} onPress={handlePressReg}>
-                      <Text style={styles.openText}>Зарегистрироваться</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.registerButton} onPress={() => {}}>
-                      <Text style={styles.registerText}>Маршрут</Text>
-                    </TouchableOpacity>
-                  </View>
+      {event && (
+        <Modal
+          isVisible={view}
+          animationIn="slideInUp"
+          animationOut="slideOutDown"
+          backdropOpacity={0}
+          coverScreen={false}
+          style={[styles.modal]}
+          swipeDirection="down"
+          hasBackdrop={true}>
+          <View style={[styles.modalContent]}>
+            <View style={styles.top}>
+              <Image source={require('./image2.png')} resizeMode="cover" style={styles.image} />
+              <Text style={styles.type} numberOfLines={1} ellipsizeMode="tail">
+                {event.policy_area}
+              </Text>
+              <Image
+                source={require('./logoLight.png')}
+                resizeMode="cover"
+                style={styles.imageLogo}
+              />
+              <Pressable style={styles.press} onPress={handleClose}>
+                <View style={styles.hr} />
+              </Pressable>
+            </View>
+            <View style={styles.wrapperContent}>
+              <View style={styles.info}>
+                <Text style={styles.title}>{event.title}</Text>
+                <Text style={styles.date}>{event.date}</Text>
+                <View style={styles.location}>
+                  <CustomIcon />
+                  <Text style={styles.locationText}>{event.location}</Text>
                 </View>
+                <View style={styles.location}>
+                  <PeopleIcon />
+                  <Text style={styles.locationText}>{event.participants} Человек</Text>
+                </View>
+                <Text style={styles.textEvent} numberOfLines={1} ellipsizeMode="tail">
+                  {event.organizer}
+                </Text>
+                <View style={styles.buttonContainer}>
+                  <TouchableOpacity style={styles.openButton} onPress={handlePressReg}>
+                    <Text style={styles.openText}>Зарегистрироваться</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.registerButton} onPress={() => {}}>
+                    <Text style={styles.registerText}>Маршрут</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
           </View>
-        </View>
-      </Modal>}
+        </Modal>
+      )}
     </>
   );
 };
@@ -144,25 +139,25 @@ export const PopupEvent = ({view,event, handleClose}: {view: boolean, handleClos
 const styles = StyleSheet.create({
   openButton: {
     flex: 1,
-    alignItems: "center",
+    alignItems: 'center',
     backgroundColor: '#00C0C9',
     borderRadius: 20,
-    textAlign: "center",
-    justifyContent: "center",
+    textAlign: 'center',
+    justifyContent: 'center',
     paddingVertical: 10,
     paddingHorizontal: 10,
   },
   registerText: {
     fontSize: 14,
     color: '#00000',
-    textAlign: "center",
+    textAlign: 'center',
   },
   registerButton: {
     flex: 1,
     maxWidth: 163,
-    alignSelf: "center",
-    justifyContent: "center",
-    backgroundColor: "#F1F1F1",
+    alignSelf: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#F1F1F1',
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 20,
@@ -176,7 +171,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     marginBottom: 8,
     color: '#000',
-    position: "absolute",
+    position: 'absolute',
     top: 40,
     right: 16,
     textAlign: 'center',
@@ -185,7 +180,7 @@ const styles = StyleSheet.create({
     lineHeight: 15.71,
     maxWidth: 150,
     letterSpacing: -0.299,
-    overflow: "hidden"
+    overflow: 'hidden',
   },
   buttonContainer: {
     gap: 6,
@@ -198,7 +193,7 @@ const styles = StyleSheet.create({
     lineHeight: 21,
     letterSpacing: -0.4,
     color: '#FFFFFF',
-    textAlign: "center"
+    textAlign: 'center',
   },
   date: {
     fontSize: 14,
@@ -211,8 +206,8 @@ const styles = StyleSheet.create({
     letterSpacing: -0.4,
   },
   location: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: 10,
   },
   title: {
@@ -230,25 +225,25 @@ const styles = StyleSheet.create({
     height: 136,
   },
   image: {
-    height: "100%",
-    width: "100%",
-    position: "absolute",
+    height: '100%',
+    width: '100%',
+    position: 'absolute',
     top: 0,
     left: 0,
     zIndex: -1,
   },
   imageLogo: {
-    position: "absolute",
+    position: 'absolute',
     top: 40,
     left: 23,
   },
   press: {
-    width: "100%",
+    width: '100%',
     paddingHorizontal: 5,
     paddingVertical: 20,
   },
   buttons: {
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: 10,
   },
   button: {
@@ -256,46 +251,46 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 10,
     borderWidth: 0.8,
-    borderColor: "#F2F2F5",
-    alignSelf: "flex-start",
+    borderColor: '#F2F2F5',
+    alignSelf: 'flex-start',
   },
   buttonText: {
-    color: "#3E3E3E",
-    textAlign: "center",
+    color: '#3E3E3E',
+    textAlign: 'center',
     fontSize: 14,
-    fontWeight: "500",
+    fontWeight: '500',
     lineHeight: 22,
     letterSpacing: -0.4,
   },
   openButtonText: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 16,
   },
   card: {
-    alignSelf: "flex-start",
-    width: "100%",
-    height: "auto",
+    alignSelf: 'flex-start',
+    width: '100%',
+    height: 'auto',
   },
   modal: {
-    justifyContent: "flex-end",
+    justifyContent: 'flex-end',
     margin: 0,
-    width: "100%",
-    position: "absolute",
+    width: '100%',
+    position: 'absolute',
     bottom: 0,
   },
   modalContent: {
-    overflow: "hidden",
+    overflow: 'hidden',
     gap: 6,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     zIndex: 3,
-    height: "50%",
-    maxHeight: "50%",
+    height: '50%',
+    maxHeight: '50%',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: -1 }, 
-    shadowOpacity: 0.25, 
-    shadowRadius: 7, 
+    shadowOffset: { width: 0, height: -1 },
+    shadowOpacity: 0.25,
+    shadowRadius: 7,
     elevation: 3,
   },
   textEvent: {
@@ -309,8 +304,8 @@ const styles = StyleSheet.create({
     letterSpacing: -0.4,
   },
   fullHeigth: {
-    height: "auto",
-    maxHeight: "auto",
+    height: 'auto',
+    maxHeight: 'auto',
   },
   wrapperContent: {
     gap: 6,
@@ -319,7 +314,7 @@ const styles = StyleSheet.create({
     height: 4,
     width: 36,
     borderRadius: 6,
-    backgroundColor: "#FFFFFF",
-    alignSelf: "center",
+    backgroundColor: '#FFFFFF',
+    alignSelf: 'center',
   },
 });
