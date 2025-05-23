@@ -11,7 +11,7 @@ export const TabBar: React.FC<BottomTabBarProps> = ({
   const pb = useSafeAreaInsets().bottom;
   return (
     <View
-      className={`${"flex-row items-center justify-between bg-white px-[9px] pt-[8px]"} `}
+      className={`${"flex-row items-center justify-between bg-white px-[9px] pt-[8px] shadow-[0px_7px_17.9px_0px_#00000040]"} `}
       style={{paddingBottom: pb ? pb: 5}}
     >
       {state.routes.map((route, index) => {

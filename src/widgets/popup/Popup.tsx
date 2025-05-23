@@ -11,6 +11,8 @@ import {
 import Modal from "react-native-modal";
 import Svg, { Path } from "react-native-svg";
 import data from "./mock/events_schedule.json";
+import data2 from './mock/jr.json'
+import { useRoleStore } from "@/app/stores/ruleStore";
 
 const SearchIcon = () => (
   <Svg width={20} height={20} viewBox="0 0 20 20" fill="none">
@@ -28,7 +30,7 @@ export default SearchIcon;
 export const Popup = ({view}: {view: boolean}) => {
   const [fullHeight, setFullHeight] = useState(false);
   
-  const check = true;
+  const {role} = useRoleStore()
   
   return (
     <>
@@ -67,7 +69,7 @@ export const Popup = ({view}: {view: boolean}) => {
             >
               <Pressable style={styles.button}>
                 <Text style={styles.buttonText}>
-                  {check ? "Спорт объекты" : "ЖК"}
+                  {role === 'resident' ? "Спорт объекты" : "ЖК"}
                 </Text>
               </Pressable>
               <Pressable style={styles.button}>
@@ -80,10 +82,21 @@ export const Popup = ({view}: {view: boolean}) => {
           </View>
           {fullHeight && (
             <ScrollView>
-              {data.map((item) => (
+              
+              {role === 'resident' ? data.map((item) => (
                 <EventCard
                   key={String(item.number)}
                   variant="resident"
+                  typeText={item.policy_area}
+                  title={item.title}
+                  img="./image.png"
+                  location={item.location}
+                  date={item.date}
+                />
+              )) : data2.map((item) => (
+                <EventCard
+                  key={String(item.number)}
+                  variant="employee"
                   typeText={item.policy_area}
                   title={item.title}
                   img="./image.png"
