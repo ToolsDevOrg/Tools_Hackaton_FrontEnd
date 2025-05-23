@@ -9,6 +9,8 @@ import { LinesIcon, LoginIcon, PasswordIcon, UjinLogo } from '../LoginScreen/ico
 import { useRegisterUser } from '@/app/services/regUser';
 import { useRoleStore } from '@/app/stores/ruleStore';
 import { useUserStore } from '@/app/stores/userStore';
+import axios from 'axios';
+import { http } from '@/shared/api';
 
 export const RegisterScreen = () => {
   const [formData, setFormData] = useState({
@@ -19,8 +21,8 @@ export const RegisterScreen = () => {
     password: '',
   });
   const role = useRoleStore()
-  const { data, isSuccess, isLoading, error, refetch } = useRegisterUser({...formData, role: role.role === "resident" ? "citizen": "employee"});
-  
+  const user = useUserStore()
+  // const { data, isSuccess, isLoading, error, refetch } = useRegisterUser({...formData, role: role.role === "resident" ? "citizen": "employee"});
   const handleInputChange = (name: keyof typeof formData, value: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -30,17 +32,27 @@ export const RegisterScreen = () => {
   
   const navigate = useTypeNavigation();
   
-  useEffect(() => {
-    if (isSuccess){
+  // useEffect(() => {
+  //   if (isSuccess){
+  //     navigate.reset({
+  //       index: 0,
+  //       routes: [{ name: 'main' }],
+  //     });
+  //   }
+  // }, [isSuccess])
+
+  const handleSubmit = () => {
+    http.post('/api/users/register', {...formData, jk_name: formData.jkName, role: role.role === "resident" ? "citizen": "employee"})
+    .then((data) => {
+      user.setUser(data)
       navigate.reset({
         index: 0,
         routes: [{ name: 'main' }],
-      });
-    }
-  }, [isSuccess])
-
-  const handleSubmit = async() => {
-    await refetch()
+        });
+      })
+    .catch((error) => {
+      console.log(error)
+    })
   };
 
   const handleLogin = () => {
@@ -101,7 +113,6 @@ export const RegisterScreen = () => {
               <UjinLogo />
               <Text className=" font-[800] text-[20px]">Easy Pass</Text>
             </View>
-
             <View className=" flex-col pb-[16px]">
               <Text className="font-[700] text-[24px] leading-[36px] relative">
                 Регистрация <LinesIcon className="rotate-[-15deg]" />
@@ -110,8 +121,6 @@ export const RegisterScreen = () => {
                 Введите свои данные
               </Text>
             </View>
-            <Text>{`${data} ${error}`}</Text>
-            {isLoading && <Text>{`Loading`}</Text>}
             <View className=" flex-col gap-[8px]">
               {inputs.map((item, index) => (
                 <CustomInput
