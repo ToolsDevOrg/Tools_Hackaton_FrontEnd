@@ -81,7 +81,7 @@ export default function EventCard({
             <Text style={styles.openText}>Открыть</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.registerButton} onPress={onRegisterPress}>
-            <Text style={styles.registerText}>Зарегистрироваться</Text>
+            <Text style={styles.registerText}>{variant === 'employee' ? 'Получить пропуск' : 'Зарегистрироваться'}</Text>
           </TouchableOpacity>
         </View>
       </View>

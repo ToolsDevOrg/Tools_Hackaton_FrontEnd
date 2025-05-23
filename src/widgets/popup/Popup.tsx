@@ -1,16 +1,12 @@
 import EventCard from "@/shared/ui/EventCard/EventCard";
 import Input from "@/shared/ui/input/input";
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  Pressable,
-} from "react-native";
+import { View, Text, StyleSheet, ScrollView, Pressable } from "react-native";
 import Modal from "react-native-modal";
 import Svg, { Path } from "react-native-svg";
 import data from "./mock/events_schedule.json";
+import data2 from "./mock/jk_mock.json";
+import { useRoleStore } from "@/app/stores/ruleStore";
 
 const SearchIcon = () => (
   <Svg width={20} height={20} viewBox="0 0 20 20" fill="none">
@@ -25,11 +21,11 @@ const SearchIcon = () => (
 
 export default SearchIcon;
 
-export const Popup = ({view}: {view: boolean}) => {
+export const Popup = ({ view }: { view: boolean }) => {
   const [fullHeight, setFullHeight] = useState(false);
-  
-  const check = true;
-  
+
+  const { role } = useRoleStore();
+
   return (
     <>
       <Modal
@@ -67,7 +63,7 @@ export const Popup = ({view}: {view: boolean}) => {
             >
               <Pressable style={styles.button}>
                 <Text style={styles.buttonText}>
-                  {check ? "Спорт объекты" : "ЖК"}
+                  {role === "resident" ? "Спорт объекты" : "ЖК"}
                 </Text>
               </Pressable>
               <Pressable style={styles.button}>
@@ -80,17 +76,29 @@ export const Popup = ({view}: {view: boolean}) => {
           </View>
           {fullHeight && (
             <ScrollView>
-              {data.map((item) => (
-                <EventCard
-                  key={String(item.number)}
-                  variant="resident"
-                  typeText={item.policy_area}
-                  title={item.title}
-                  img="./image.png"
-                  location={item.location}
-                  date={item.date}
-                />
-              ))}
+              {role === "resident"
+                ? data.map((item) => (
+                    <EventCard
+                      key={String(item.number)}
+                      variant="resident"
+                      typeText={item.policy_area}
+                      title={item.title}
+                      img="./image.png"
+                      location={item.location}
+                      date={item.date}
+                    />
+                  ))
+                : data2.map((item) => (
+                    <EventCard
+                      key={String(item.number)}
+                      variant="employee"
+                      typeText={item.policy_area}
+                      title={item.title}
+                      img="./image.png"
+                      location={item.location}
+                      date={item.date}
+                    />
+                  ))}
             </ScrollView>
           )}
         </View>
@@ -163,10 +171,10 @@ const styles = StyleSheet.create({
     zIndex: 3,
     height: "22.8%",
     maxHeight: "22.8%",
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: -1 }, 
-    shadowOpacity: 0.25, 
-    shadowRadius: 7, 
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: -1 },
+    shadowOpacity: 0.25,
+    shadowRadius: 7,
     elevation: 3,
   },
   fullHeigth: {
