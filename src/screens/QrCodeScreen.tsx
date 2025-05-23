@@ -66,7 +66,7 @@ export const QrCodeScreen: React.FC = () => {
       </View>
 
       <Pressable
-        onPress={() => navigation.goBack()}
+        onPress={() => navigation.navigate('Pass', { screen: 'menu2_main' })}
         className="bg-[#00C1C9] w-full py-[15px] mt-[10px] flex-row justify-center items-center rounded-[20px]">
         <Text className="font-[600] text-[15px] text-white">Закрыть</Text>
       </Pressable>
