@@ -1,3 +1,4 @@
+import { useRoleStore } from '@/app/stores/ruleStore';
 import { Cars } from '@/components/PassComponents/Cars/Cars';
 import { Events } from '@/components/PassComponents/Events/Events';
 import { Tabs } from '@/components/PassComponents/Tabs/Tabs';
@@ -8,6 +9,7 @@ import { Image, Text, View } from 'react-native';
 
 export const Menu2Screen: React.FC = () => {
   const { activeTab } = useTabStore();
+  const {role} = useRoleStore()
 
   return (
     <ScreenWrapper>
@@ -22,10 +24,14 @@ export const Menu2Screen: React.FC = () => {
         />
       </View>
 
-      <Tabs  />
+      {role === 'resident' && <Tabs  />}
+
+      
       <Text className='font-[700] text-[20px] mb-[15px]'>Ваши пропуска</Text>
 
-      {activeTab === 'car' ? <Cars /> : <Events />}
+      {role === 'resident' && activeTab === 'car' ? <Cars /> : <Events />}
+
+      
 
 
     </ScreenWrapper>

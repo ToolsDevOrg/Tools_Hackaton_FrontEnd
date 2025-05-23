@@ -4,10 +4,12 @@ import { Menu1Stack } from "../stack/Menu1Stack";
 import { Menu2Stack } from "../stack/Menu2Stack";
 import { Menu3Stack } from "../stack/Menu3Stack";
 import { Menu4Stack } from "../stack/Menu4Stack";
+import { useRoleStore } from "../stores/ruleStore";
 
 const Tab = createBottomTabNavigator();
 
 export const TabNavigator: React.FC = () => {
+  const { role } = useRoleStore();
   return (
     <Tab.Navigator
       screenOptions={{
@@ -28,7 +30,7 @@ export const TabNavigator: React.FC = () => {
       <Tab.Screen
         name="Suggestions"
         component={Menu3Stack}
-        options={{ title: "Предложения" }}
+        options={{ title: role === "resident" ? "Предложения" : "Заявки" }}
       />
       <Tab.Screen
         name="Profile"

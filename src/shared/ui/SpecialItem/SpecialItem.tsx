@@ -11,6 +11,7 @@ interface SpecialItemProps {
   title?: string;
   subtitle?: string;
   btnText?: string;
+  secBtnText?: string;
   src?: ImageSourcePropType;
 }
 
@@ -18,6 +19,7 @@ export const SpecialItem = ({
   title,
   subtitle,
   btnText,
+  secBtnText,
   src,
 }: SpecialItemProps) => {
   return (
@@ -29,11 +31,20 @@ export const SpecialItem = ({
         <Text className=" font-[600] text-[15px] leading-[20px] color-[#717171] pb-[8px] max-w-[85%]">
           {subtitle}
         </Text>
-        <Pressable className=" py-[10px] px-[18px] rounded-[30px] bg-[#00C0C9]">
-          <Text className=" color-[#ffffff] font-[600] text-[14px] leading-[21px]">
-            {btnText}
-          </Text>
-        </Pressable>
+        <View className="flex-row gap-[8px]">
+          {secBtnText && (
+            <Pressable className=" py-[10px] px-[18px] rounded-[30px] bg-[#FFFFFF]">
+              <Text className=" font-[600] text-[14px] leading-[21px]">
+                {secBtnText}
+              </Text>
+            </Pressable>
+          )}
+          <Pressable className=" py-[10px] px-[18px] rounded-[30px] bg-[#00C0C9]">
+            <Text className=" color-[#ffffff] font-[600] text-[14px] leading-[21px]">
+              {btnText}
+            </Text>
+          </Pressable>
+        </View>
       </View>
       {src ? (
         <Image
