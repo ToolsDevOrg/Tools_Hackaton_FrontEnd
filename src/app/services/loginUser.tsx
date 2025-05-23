@@ -1,21 +1,19 @@
 import { http } from "@/shared/api";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import * as api from "../../shared/api/config"
 
-export const loginUser = async (email: string, password: string) => {
+export const loginUser = async ({ email, password }: { email: string; password: string }) => {
   try {
-    const { data } = await http.post(api.loginUser, {email: email, password: password});
+    const { data } = await http.post(api.loginUser, { email, password });
     return data;
   } catch (error) {
     throw new Error("Ошибка при логине");
   }
 };
 
-export const useLoginUser = (email: string, password: string) => {
-  return useQuery({
-    queryKey: ['loginUser'],
-    queryFn: () => loginUser(email, password),
-    enabled: false,
-    retry: false,
+export const useLoginUser = () => {
+  return useMutation({
+    mutationKey: ['loginUser'], // Изменили ключ для ясности
+    mutationFn:({ email, password }: { email: string; password: string }) =>  loginUser({ email, password }), // Просто передаём функцию
   });
 };
