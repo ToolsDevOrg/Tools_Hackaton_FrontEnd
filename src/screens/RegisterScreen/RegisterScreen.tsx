@@ -3,9 +3,14 @@ import { CustomInput, InputProps } from '@/shared/ui/CustomInput/CustomInput';
 import { View, Pressable, Text } from 'react-native';
 import { InnIcon, PhoneIcon, ProfileIcon } from './icons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTypeNavigation } from '@/shared/hooks/useTypeNavigation';
 import { LinesIcon, LoginIcon, PasswordIcon, UjinLogo } from '../LoginScreen/icons';
+import { useRegisterUser } from '@/app/services/regUser';
+import { useRoleStore } from '@/app/stores/ruleStore';
+import { useUserStore } from '@/app/stores/userStore';
+import axios from 'axios';
+import { http } from '@/shared/api';
 
 export const RegisterScreen = () => {
   const [formData, setFormData] = useState({
@@ -15,21 +20,39 @@ export const RegisterScreen = () => {
     phone: '',
     password: '',
   });
-
+  const role = useRoleStore()
+  const user = useUserStore()
+  // const { data, isSuccess, isLoading, error, refetch } = useRegisterUser({...formData, role: role.role === "resident" ? "citizen": "employee"});
   const handleInputChange = (name: keyof typeof formData, value: string) => {
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
-
+  
   const navigate = useTypeNavigation();
+  
+  // useEffect(() => {
+  //   if (isSuccess){
+  //     navigate.reset({
+  //       index: 0,
+  //       routes: [{ name: 'main' }],
+  //     });
+  //   }
+  // }, [isSuccess])
 
   const handleSubmit = () => {
-    navigate.reset({
-      index: 0,
-      routes: [{ name: 'main' }],
-    });
+    http.post('/api/users/register', {...formData, jk_name: formData.jkName, role: role.role === "resident" ? "citizen": "employee"})
+    .then((data) => {
+      user.setUser(data)
+      navigate.reset({
+        index: 0,
+        routes: [{ name: 'main' }],
+        });
+      })
+    .catch((error) => {
+      console.log(error)
+    })
   };
 
   const handleLogin = () => {
@@ -90,7 +113,6 @@ export const RegisterScreen = () => {
               <UjinLogo />
               <Text className=" font-[800] text-[20px]">Easy Pass</Text>
             </View>
-
             <View className=" flex-col pb-[16px]">
               <Text className="font-[700] text-[24px] leading-[36px] relative">
                 Регистрация <LinesIcon className="rotate-[-15deg]" />
@@ -99,7 +121,6 @@ export const RegisterScreen = () => {
                 Введите свои данные
               </Text>
             </View>
-
             <View className=" flex-col gap-[8px]">
               {inputs.map((item, index) => (
                 <CustomInput

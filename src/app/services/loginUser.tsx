@@ -13,7 +13,9 @@ export const loginUser = async (email: string, password: string) => {
 
 export const useLoginUser = (email: string, password: string) => {
   return useQuery({
-    queryKey: ['profileUser'],
+    queryKey: ['loginUser'],
     queryFn: () => loginUser(email, password),
+    enabled: false,
+    retry: false,
   });
 };

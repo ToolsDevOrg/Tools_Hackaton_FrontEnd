@@ -2,9 +2,9 @@ import axios from "axios";
 // import { getToken } from "../token/Token";
 
 export const http = axios.create({
-  baseURL: 'http://192.168.0.5:8000',
+  baseURL: 'http://172.20.10.11:8000',
+  withCredentials: true,
 })
-
 
 // http.interceptors.request.use(
 //   async (config) => {
