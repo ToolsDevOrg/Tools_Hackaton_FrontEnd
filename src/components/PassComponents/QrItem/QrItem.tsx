@@ -13,7 +13,7 @@ export const QrItem: React.FC = () => {
       onPress={() => navigation.navigate(isScreen)}
       className="rounded-[20px] bg-[#F4F4F7] py-[20px] px-[15px] w-full">
       <View className="flex-row items-center justify-between gap-[10px]">
-        <View className='max-w-[235px]'>
+        <View>
           <Text className="font-[700] text-[16px] mb-[5px]">ЖК “Премьер”</Text>
           <Text className="text-[#717171] font-[700] max-w-[235px] text-[14px] leading-[120%]">
             Пермь, улица Николая Островского, 52

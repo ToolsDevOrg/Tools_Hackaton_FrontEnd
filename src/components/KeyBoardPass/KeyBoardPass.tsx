@@ -1,21 +1,23 @@
-import { useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text } from 'react-native';
 
-export const KeyBoardPass: React.FC = () => {
-  const [randomNumbers] = useState<string[]>(['0', '1', '2', '3', '4', '5']);
+type KeyBoardPassProps = {
+  code: string | undefined; 
+};
+
+export const KeyBoardPass: React.FC<KeyBoardPassProps> = ({ code }) => {
+  const digits = code.split('');
 
   return (
     <View className="flex-row w-full justify-between my-5 rounded-3xl">
-      {randomNumbers.map((number, index) => (
+      {digits.map((digit, index) => (
         <View
           key={index}
           className={[
-            'w-[50] h-[55] border mx-1 rounded-[20px]',
+            'w-[50] h-[55] mx-1 rounded-[20px]',
             'justify-center items-center',
-            'border-[#00C0C9] border-2' // Все View будут с синей рамкой
-          ].join(' ')}
-        >
-          <Text className="text-2xl font-bold">{number}</Text>
+            digit ? 'bg-[#00C0C9]' : 'border-[#00C0C9] border-2',
+          ].join(' ')}>
+          <Text className="text-2xl font-bold text-black">{digit}</Text>
         </View>
       ))}
     </View>
