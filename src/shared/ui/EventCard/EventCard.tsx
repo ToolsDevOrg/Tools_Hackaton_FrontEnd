@@ -1,6 +1,6 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import Svg, { G, Path, ClipPath, Rect, Defs, Circle } from 'react-native-svg';
+import React from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import Svg, { G, Path, ClipPath, Rect, Defs, Circle } from "react-native-svg";
 
 const LogoIcon = () => (
   <Svg width={92} height={33} viewBox="0 0 92 33" fill="none">
@@ -10,13 +10,34 @@ const LogoIcon = () => (
       </ClipPath>
     </Defs>
     <G opacity={0.2} clipPath="url(#clip0)">
-      <Path d="M56.2774 6.84058H51.9933V21.597H48.1792C45.6329 21.597 43.9011 19.8617 43.9011 17.3139V10.1358C43.9011 8.31603 42.4266 6.8407 40.6079 6.8407H39.6169V17.3139C39.6169 22.0455 43.4504 25.8813 48.1792 25.8813L56.2774 25.8811V6.84058Z" fill="#212121" />
-      <Path d="M74.8433 25.8816H79.1276V11.1251L82.9418 11.1252C85.4878 11.1252 87.2198 12.8605 87.2198 15.4082V22.5864C87.2198 24.4062 88.6944 25.8815 90.5133 25.8815H91.5042V15.4082C91.5042 10.6766 87.6702 6.84094 82.9418 6.84094L74.8433 6.84107V25.8816Z" fill="#212121" />
-      <Path d="M71.5324 4.71186C71.5324 4.14926 71.4213 3.59217 71.206 3.07239C70.9907 2.55262 70.675 2.08035 70.2777 1.68252C69.8796 1.2847 69.4075 0.969138 68.8874 0.753846C68.368 0.538546 67.8109 0.427734 67.248 0.427734V4.71186H71.5324Z" fill="#212121" />
-      <Path d="M63.8992 28.0008C63.8992 28.5634 63.7886 29.1205 63.5733 29.6403C63.358 30.1601 63.0424 30.6323 62.6446 31.0302C62.2468 31.4279 61.7746 31.7435 61.2548 31.9588C60.735 32.1741 60.1779 32.2849 59.6153 32.2849L59.5823 6.82874H63.8664L63.8992 28.0008Z" fill="#212121" />
-      <Path d="M67.2214 6.84058H71.5058V25.8811H67.2214V6.84058Z" fill="#212121" />
-      <Path d="M0 4.93302C0 2.43498 2.02507 0.409912 4.52311 0.409912H31.9444V32.3544H4.52311C2.02507 32.3544 0 30.3293 0 27.8313V4.93302Z" fill="#00C0C9" />
-      <Path d="M26.3847 4.74451H21.0297V22.6466L16.2621 22.6466C13.0794 22.6466 10.9146 20.4703 10.9146 17.275V8.87724C10.9146 6.59488 9.07164 4.74465 6.79822 4.74465H5.55957V17.275C5.55957 23.2091 10.3513 28.0196 16.2621 28.0196L26.3847 28.0195V4.74451Z" fill="white" />
+      <Path
+        d="M56.2774 6.84058H51.9933V21.597H48.1792C45.6329 21.597 43.9011 19.8617 43.9011 17.3139V10.1358C43.9011 8.31603 42.4266 6.8407 40.6079 6.8407H39.6169V17.3139C39.6169 22.0455 43.4504 25.8813 48.1792 25.8813L56.2774 25.8811V6.84058Z"
+        fill="#212121"
+      />
+      <Path
+        d="M74.8433 25.8816H79.1276V11.1251L82.9418 11.1252C85.4878 11.1252 87.2198 12.8605 87.2198 15.4082V22.5864C87.2198 24.4062 88.6944 25.8815 90.5133 25.8815H91.5042V15.4082C91.5042 10.6766 87.6702 6.84094 82.9418 6.84094L74.8433 6.84107V25.8816Z"
+        fill="#212121"
+      />
+      <Path
+        d="M71.5324 4.71186C71.5324 4.14926 71.4213 3.59217 71.206 3.07239C70.9907 2.55262 70.675 2.08035 70.2777 1.68252C69.8796 1.2847 69.4075 0.969138 68.8874 0.753846C68.368 0.538546 67.8109 0.427734 67.248 0.427734V4.71186H71.5324Z"
+        fill="#212121"
+      />
+      <Path
+        d="M63.8992 28.0008C63.8992 28.5634 63.7886 29.1205 63.5733 29.6403C63.358 30.1601 63.0424 30.6323 62.6446 31.0302C62.2468 31.4279 61.7746 31.7435 61.2548 31.9588C60.735 32.1741 60.1779 32.2849 59.6153 32.2849L59.5823 6.82874H63.8664L63.8992 28.0008Z"
+        fill="#212121"
+      />
+      <Path
+        d="M67.2214 6.84058H71.5058V25.8811H67.2214V6.84058Z"
+        fill="#212121"
+      />
+      <Path
+        d="M0 4.93302C0 2.43498 2.02507 0.409912 4.52311 0.409912H31.9444V32.3544H4.52311C2.02507 32.3544 0 30.3293 0 27.8313V4.93302Z"
+        fill="#00C0C9"
+      />
+      <Path
+        d="M26.3847 4.74451H21.0297V22.6466L16.2621 22.6466C13.0794 22.6466 10.9146 20.4703 10.9146 17.275V8.87724C10.9146 6.59488 9.07164 4.74465 6.79822 4.74465H5.55957V17.275C5.55957 23.2091 10.3513 28.0196 16.2621 28.0196L26.3847 28.0195V4.74451Z"
+        fill="white"
+      />
     </G>
   </Svg>
 );
@@ -44,7 +65,7 @@ interface IEventCard {
   title: string;
   location: string;
   date: string;
-  img: string 
+  img: string;
   onOpenPress?: () => void;
   onRegisterPress?: () => void;
 }
@@ -57,17 +78,19 @@ export default function EventCard({
   date,
   img,
   onOpenPress,
-  onRegisterPress
+  onRegisterPress,
 }: IEventCard) {
   return (
     <View style={styles.card}>
       <View style={styles.top}>
-        <Text style={styles.type} numberOfLines={1} ellipsizeMode="tail">{typeText}</Text>
-          <Image
-            source={require('./image.png')}
-            style={styles.image}
-            resizeMode="cover"
-          />
+        <Text style={styles.type} numberOfLines={1} ellipsizeMode="tail">
+          {typeText}
+        </Text>
+        <Image
+          source={require("./image.png")}
+          style={styles.image}
+          resizeMode="cover"
+        />
       </View>
       <View style={styles.info}>
         <Text style={styles.title}>{title}</Text>
@@ -80,8 +103,15 @@ export default function EventCard({
           <TouchableOpacity style={styles.openButton} onPress={onOpenPress}>
             <Text style={styles.openText}>Открыть</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.registerButton} onPress={onRegisterPress}>
-            <Text style={styles.registerText}>Зарегистрироваться</Text>
+          <TouchableOpacity
+            style={styles.registerButton}
+            onPress={onRegisterPress}
+          >
+            <Text style={styles.registerText}>
+              {variant === "employee"
+                ? "Получить пропуск"
+                : "Зарегистрироваться"}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -91,10 +121,10 @@ export default function EventCard({
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 16,
     width: "100%",
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 32,
@@ -122,32 +152,32 @@ const styles = StyleSheet.create({
     height: 106,
     width: "100%",
     backgroundColor: "#F4F4F7",
-    borderTopLeftRadius: 20,  
+    borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
   type: {
     zIndex: 2,
-    alignSelf: 'flex-end',
-    backgroundColor: '#FFFFFF',
+    alignSelf: "flex-end",
+    backgroundColor: "#FFFFFF",
     paddingHorizontal: 13.5,
     paddingVertical: 7.5,
     borderRadius: 12,
     marginBottom: 8,
-    color: '#000',
+    color: "#000",
     position: "absolute",
     top: 16,
     right: 16,
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 10.473,
-    fontWeight: '500',
+    fontWeight: "500",
     lineHeight: 15.71,
     maxWidth: 250,
     letterSpacing: -0.299,
-    overflow: "hidden"
+    overflow: "hidden",
   },
   title: {
     fontSize: 17,
-    fontWeight: '600',
+    fontWeight: "600",
     lineHeight: 22,
     letterSpacing: -0.4,
   },
@@ -158,23 +188,23 @@ const styles = StyleSheet.create({
   },
   locationText: {
     fontSize: 15,
-    color: '#707579',
+    color: "#707579",
     lineHeight: 20,
     letterSpacing: -0.4,
   },
   date: {
     fontSize: 14,
-    color: '#888',
+    color: "#888",
   },
   buttonContainer: {
     gap: 6,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   openButton: {
     flex: 1,
     maxWidth: 131,
-    backgroundColor: '#F1F1F1',
+    backgroundColor: "#F1F1F1",
     borderRadius: 20,
     alignItems: "center",
     justifyContent: "center",
@@ -185,19 +215,19 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 21,
     letterSpacing: -0.4,
-    color: '#000000',
+    color: "#000000",
   },
   registerButton: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: '#00C0C9',
+    backgroundColor: "#00C0C9",
     borderRadius: 20,
     paddingVertical: 10,
     paddingHorizontal: 10,
   },
   registerText: {
     fontSize: 14,
-    color: '#fff',
+    color: "#fff",
   },
 });
