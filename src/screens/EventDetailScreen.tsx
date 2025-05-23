@@ -50,13 +50,11 @@ export const EventDetailScreen: React.FC = () => {
   const navigation = useTypeNavigation();
   const { event } = useEventStore();
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<any>(null);
   
   const handleSubmit = () => {
     if (!event) return;
     
     setIsLoading(true);
-    setError(null);
     
     http.post('/api/passes/create', {
       "title": event.title,
@@ -78,7 +76,6 @@ export const EventDetailScreen: React.FC = () => {
     })
     .catch((error) => {
       console.log(error);
-      setError(error);
       navigation.navigate('Pass', { screen: 'qr_code' });
     })
     .finally(() => {
@@ -164,13 +161,6 @@ export const EventDetailScreen: React.FC = () => {
           </View>
         </View>
       </View>
-
-      {error && (
-        <Text className="text-red-500 text-center mt-2">{`${Object.keys(error).map((item) => {
-          return error[item]
-        })}`}</Text>
-      )}
-
       <TouchableOpacity
         onPress={handleSubmit}
         disabled={isLoading}
