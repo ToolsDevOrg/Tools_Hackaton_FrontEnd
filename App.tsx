@@ -14,7 +14,7 @@ export default function App() {
       <StatusBar style="dark" />
       <SafeAreaProvider>
         <QueryClientProvider client={queryClient}>
-          <SafeAreaView style={styles.container}>
+          <SafeAreaView style={styles.container} edges={["left", "right"]}>
             <AppNavigator />
           </SafeAreaView>
         </QueryClientProvider>

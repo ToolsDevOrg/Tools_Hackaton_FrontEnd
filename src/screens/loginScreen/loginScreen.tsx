@@ -15,7 +15,7 @@ export const LoginScreen = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-
+  
   const { setUser } = useUserStore();
   const navigate = useTypeNavigation();
   const handleInputChange = (name: keyof typeof formData, value: string) => {

@@ -9,7 +9,6 @@ import { LinesIcon, LoginIcon, PasswordIcon, UjinLogo } from '../LoginScreen/ico
 import { useRegisterUser } from '@/app/services/regUser';
 import { useRoleStore } from '@/app/stores/ruleStore';
 import { useUserStore } from '@/app/stores/userStore';
-import axios from 'axios';
 import { http } from '@/shared/api';
 
 export const RegisterScreen = () => {
@@ -44,7 +43,7 @@ export const RegisterScreen = () => {
   const handleSubmit = () => {
     http.post('/api/users/register', {...formData, jk_name: formData.jkName, role: role.role === "resident" ? "citizen": "employee"})
     .then((data) => {
-      user.setUser(data)
+      user.setUser(data.data)
       navigate.reset({
         index: 0,
         routes: [{ name: 'main' }],
