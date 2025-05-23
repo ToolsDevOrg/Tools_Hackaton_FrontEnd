@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 type UserRole = "citizen" | "employee";
 
-interface User {
+export interface User {
   id: string;
   email: string;
   phone: string;

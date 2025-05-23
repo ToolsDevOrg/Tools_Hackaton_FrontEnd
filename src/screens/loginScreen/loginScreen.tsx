@@ -2,8 +2,9 @@ import { ScreenWrapper } from "@/shared/ui";
 import { CustomInput } from "@/shared/ui/CustomInput/CustomInput";
 import { View, Text, Pressable } from "react-native";
 import { UjinLogo, LinesIcon, LoginIcon, PasswordIcon } from "./icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTypeNavigation } from "@/shared/hooks/useTypeNavigation";
+import { useLoginUser } from "@/app/services/loginUser";
 
 export const LoginScreen = () => {
   const [formData, setFormData] = useState({
@@ -12,7 +13,7 @@ export const LoginScreen = () => {
   });
 
   const navigate = useTypeNavigation();
-
+  const { data, isSuccess, isLoading, error, refetch } = useLoginUser(formData.email, formData.password);
   const handleInputChange = (name: keyof typeof formData, value: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -20,11 +21,18 @@ export const LoginScreen = () => {
     }));
   };
 
-  const handleSubmit = () => {
-    navigate.reset({
+  useEffect(() => {
+    if (isSuccess){
+      navigate.reset({
       index: 0,
       routes: [{ name: "main" }],
     });
+    }
+  }, [isSuccess])
+
+  const handleSubmit = async () => {
+    await refetch()
+    
   };
 
   const handleRegister = () => {
@@ -36,6 +44,7 @@ export const LoginScreen = () => {
 
   return (
     <ScreenWrapper className=" bg-white">
+      
       <View className="flex-col justify-between items-center h-[100%] w-[100%]">
         <View className=" w-[100%]">
           <View className=" items-center justify-between flex-row pb-[30px]">

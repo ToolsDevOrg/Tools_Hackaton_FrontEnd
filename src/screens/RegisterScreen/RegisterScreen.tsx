@@ -3,9 +3,12 @@ import { CustomInput, InputProps } from '@/shared/ui/CustomInput/CustomInput';
 import { View, Pressable, Text } from 'react-native';
 import { InnIcon, PhoneIcon, ProfileIcon } from './icons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTypeNavigation } from '@/shared/hooks/useTypeNavigation';
 import { LinesIcon, LoginIcon, PasswordIcon, UjinLogo } from '../LoginScreen/icons';
+import { useRegisterUser } from '@/app/services/regUser';
+import { useRoleStore } from '@/app/stores/ruleStore';
+import { useUserStore } from '@/app/stores/userStore';
 
 export const RegisterScreen = () => {
   const [formData, setFormData] = useState({
@@ -15,21 +18,29 @@ export const RegisterScreen = () => {
     phone: '',
     password: '',
   });
-
+  const role = useRoleStore()
+  const { data, isSuccess, isLoading, error, refetch } = useRegisterUser({...formData, role: role.role === "resident" ? "citizen": "employee"});
+  
   const handleInputChange = (name: keyof typeof formData, value: string) => {
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
-
+  
   const navigate = useTypeNavigation();
+  
+  useEffect(() => {
+    if (isSuccess){
+      navigate.reset({
+        index: 0,
+        routes: [{ name: 'main' }],
+      });
+    }
+  }, [isSuccess])
 
-  const handleSubmit = () => {
-    navigate.reset({
-      index: 0,
-      routes: [{ name: 'main' }],
-    });
+  const handleSubmit = async() => {
+    await refetch()
   };
 
   const handleLogin = () => {
@@ -99,7 +110,8 @@ export const RegisterScreen = () => {
                 Введите свои данные
               </Text>
             </View>
-
+            <Text>{`${data} ${error}`}</Text>
+            {isLoading && <Text>{`Loading`}</Text>}
             <View className=" flex-col gap-[8px]">
               {inputs.map((item, index) => (
                 <CustomInput
