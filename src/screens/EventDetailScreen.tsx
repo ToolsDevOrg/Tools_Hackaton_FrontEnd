@@ -1,12 +1,90 @@
 import { useTypeNavigation } from '@/shared/hooks/useTypeNavigation';
 import { ScreenWrapper } from '@/shared/ui';
-import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View, ActivityIndicator } from 'react-native';
 import { useEventStore } from './MapScreen/popup.store';
 import { CustomIcon, PeopleIcon } from '@/widgets/popupEvent/PopupEvent';
+import { http } from '@/shared/api';
+import { useState } from 'react';
+
+function formatDateToISO(inputDate: any) {
+  const parts = inputDate.trim().split(/\s+/);
+  
+  if (parts.length === 3) {
+    const [dayPart, monthName, year] = parts;
+    
+    const day = dayPart.includes('-') ? dayPart.split('-')[1] : dayPart;
+    
+    const months = {
+      'января': '01',
+      'февраля': '02',
+      'марта': '03',
+      'апреля': '04',
+      'мая': '05',
+      'июня': '06',
+      'июля': '07',
+      'августа': '08',
+      'сентября': '09',
+      'октября': '10',
+      'ноября': '11',
+      'декабря': '12'
+    };
+    
+    const month = months[monthName.toLowerCase()];
+    
+    const formattedDay = day.padStart(2, '0');
+    
+    return `${year}-${month}-${formattedDay}`;
+  } else if (parts.length === 2 && parts[0].includes('-')) {
+    const [dayRange, rest] = parts;
+    const [startDay, endDay] = dayRange.split('-');
+    const [month, year] = rest.split('.');
+    
+    return `${year}-${month.padStart(2, '0')}-${endDay.padStart(2, '0')}`;
+  }
+  
+  throw new Error(`Неизвестный формат даты: ${inputDate}`);
+}
+
 
 export const EventDetailScreen: React.FC = () => {
   const navigation = useTypeNavigation();
   const { event } = useEventStore();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<any>(null);
+  
+  const handleSubmit = () => {
+    if (!event) return;
+    
+    setIsLoading(true);
+    setError(null);
+    
+    http.post('/api/passes/create', {
+      "title": event.title,
+      "start_date": formatDateToISO(event.date),
+      "location": event.location,
+      "policy_area": event.policy_area,
+      "organizer": event.organizer,
+      "latitude": event.latitude,
+      "longitude": event.longitude,
+      "participants": event.participants,
+      "active_from": formatDateToISO(event.date),
+      "car_number": null,
+      "work_time_from": "04:11:12.224Z",
+      "pass_type": "event"
+    })
+    .then((data) => {
+      console.log(data);
+      navigation.navigate('Pass', { screen: 'qr_code' });
+    })
+    .catch((error) => {
+      console.log(error);
+      setError(error);
+      navigation.navigate('Pass', { screen: 'qr_code' });
+    })
+    .finally(() => {
+      setIsLoading(false);
+    });
+  };
 
   return (
     <ScreenWrapper>
@@ -87,11 +165,22 @@ export const EventDetailScreen: React.FC = () => {
         </View>
       </View>
 
+      {error && (
+        <Text className="text-red-500 text-center mt-2">{`${Object.keys(error).map((item) => {
+          return error[item]
+        })}`}</Text>
+      )}
+
       <TouchableOpacity
-        onPress={() => navigation.navigate('Pass', { screen: 'qr_code' })}
+        onPress={handleSubmit}
+        disabled={isLoading}
         className={`rounded-[20px] w-full bg-[#00C0C9] py-[15px] flex-row items-center justify-center mt-[20px]
-            `}>
-        <Text className="text-white">Создать пропуск</Text>
+            ${isLoading ? 'opacity-70' : ''}`}>
+        {isLoading ? (
+          <ActivityIndicator color="#FFFFFF" />
+        ) : (
+          <Text className="text-white">Создать пропуск</Text>
+        )}
       </TouchableOpacity>
     </ScreenWrapper>
   );

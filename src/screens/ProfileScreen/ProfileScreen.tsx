@@ -5,11 +5,14 @@ import { InfoIcon, JK, Phone, Logo, Logo2 } from "./icons";
 import { useState } from "react";
 import { LogoutPopup } from "@/widgets/LogoutPopup/LogoutPopup";
 import { useRoleStore } from "@/app/stores/ruleStore";
+import { useUserStore } from "@/app/stores/userStore";
 
 export const ProfileScreen = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { role } = useRoleStore();
   const handleLogout = () => {};
+  const {user} = useUserStore()
+  
   return (
     <>
       <LogoutPopup
@@ -33,7 +36,7 @@ export const ProfileScreen = () => {
           <View className="flex-row items-center justify-between">
             <View className="gap-[8px] max-w-[124px]">
               <Text className="font-[700] text-[20px] leading-[30px]">
-                Алексей Феоктистов
+                {user?.fio}
               </Text>
               <View className="flex-row items-center gap-[8px]">
                 <JK />
@@ -44,7 +47,7 @@ export const ProfileScreen = () => {
               <View className="flex-row items-center gap-[8px]">
                 <Phone />
                 <Text className="font-[600] text-[14px] leading-[24px] color-[#717171]">
-                  +7 922 365 54 06
+                  {user?.phone}
                 </Text>
               </View>
             </View>

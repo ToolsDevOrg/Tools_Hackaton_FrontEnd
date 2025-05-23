@@ -74,7 +74,6 @@ export const PopupEvent = ({
   const handlePressReg = () => {
     setEvent(event);
     navigation.navigate('event_detail')
-    
   };
 
   return (
