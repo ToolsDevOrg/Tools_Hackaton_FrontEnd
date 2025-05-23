@@ -5,6 +5,7 @@ import { useEventStore } from './MapScreen/popup.store';
 import { CustomIcon, PeopleIcon } from '@/widgets/popupEvent/PopupEvent';
 import { http } from '@/shared/api';
 import { useState } from 'react';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 function formatDateToISO(inputDate: any) {
   const parts = inputDate.trim().split(/\s+/);
@@ -83,22 +84,47 @@ export const EventDetailScreen: React.FC = () => {
     });
   };
 
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [selectedTime, setSelectedTime] = useState<Date>(new Date());
+
+  const handleConfirmDate = (date: Date) => {
+    setSelectedDate(date);
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirmTime = (time: Date) => {
+    setSelectedTime(time);
+    setTimePickerVisibility(false);
+  };
+
   return (
     <ScreenWrapper>
       <View className="flex-row items-center gap-[20px] mb-[15px]">
-        <Pressable className="w-[20px] h-[20px]" onPress={() => navigation.goBack()}>
-          <Image style={{ width: 10, height: 16 }} source={require('../../assets/ArrowBack.png')} />
+        <Pressable
+          className="w-[20px] h-[20px]"
+          onPress={() => navigation.goBack()}
+        >
+          <Image
+            style={{ width: 10, height: 16 }}
+            source={require("../../assets/ArrowBack.png")}
+          />
         </Pressable>
         <View>
-          <Text className="text-black font-[700] text-[24px] mb-[5px]">Регистрация</Text>
-          <Text className="text-[14px] font-[600] text-[#717171]">Оформление пропуска</Text>
+          <Text className="text-black font-[700] text-[24px] mb-[5px]">
+            Регистрация
+          </Text>
+          <Text className="text-[14px] font-[600] text-[#717171]">
+            Оформление пропуска
+          </Text>
         </View>
       </View>
 
       <View style={[styles.modalContent]}>
         <View style={styles.top}>
           <Image
-            source={require('../widgets/popupEvent/image2.png')}
+            source={require("../widgets/popupEvent/image2.png")}
             resizeMode="cover"
             style={styles.image}
           />
@@ -106,7 +132,7 @@ export const EventDetailScreen: React.FC = () => {
             {event?.policy_area}
           </Text>
           <Image
-            source={require('../widgets/popupEvent/logoLight.png')}
+            source={require("../widgets/popupEvent/logoLight.png")}
             resizeMode="cover"
             style={styles.imageLogo}
           />
@@ -121,9 +147,15 @@ export const EventDetailScreen: React.FC = () => {
             </View>
             <View style={styles.location}>
               <PeopleIcon />
-              <Text style={styles.locationText}>{event?.participants} Человек</Text>
+              <Text style={styles.locationText}>
+                {event?.participants} Человек
+              </Text>
             </View>
-            <Text style={styles.textEvent} numberOfLines={1} ellipsizeMode="tail">
+            <Text
+              style={styles.textEvent}
+              numberOfLines={1}
+              ellipsizeMode="tail"
+            >
               {event?.organizer}
             </Text>
           </View>
@@ -134,32 +166,54 @@ export const EventDetailScreen: React.FC = () => {
         <View className="flex-row gap-[10px] items-center rounded-[20px] px-[16px] py-[14px] border border-[#F2F2F5] w-full">
           <Image
             style={{ width: 25, height: 25 }}
-            source={require('../../assets/ProfileCreatePass.png')}
+            source={require("../../assets/ProfileCreatePass.png")}
           />
-          <Text className="font-[700] text-[15px]">Феоктистов Алексей Александрович</Text>
+          <Text className="font-[700] text-[15px]">
+            Феоктистов Алексей Александрович
+          </Text>
         </View>
         <View className="flex-row gap-[10px] items-center rounded-[20px] px-[16px] py-[14px] border border-[#F2F2F5] w-full">
           <Image
             style={{ width: 25, height: 25 }}
-            source={require('../../assets/TelephoneCreatePass.png')}
+            source={require("../../assets/TelephoneCreatePass.png")}
           />
           <Text className="font-[700] text-[15px]">+7 922 365 54 06</Text>
         </View>
       </View>
 
       <View className="flex-row gap-[10px] mt-[10px] w-full">
-        <View className="flex-1 items-start rounded-[20px] border border-[#F2F2F5] overflow-hidden">
+        <TouchableOpacity
+          className="flex-1 items-start rounded-[20px] border border-[#F2F2F5] overflow-hidden"
+          onPress={() => setTimePickerVisibility(true)}
+        >
           <View className="flex-row items-center justify-center gap-[10px] p-[16px]">
-            <Image style={{ width: 25, height: 25 }} source={require('../../assets/Time.png')} />
-            <Text className="font-[700] text-[15px]">18:00</Text>
+            <Image
+              style={{ width: 25, height: 25 }}
+              source={require("../../assets/Time.png")}
+            />
+            <Text className="font-[700] text-[15px]">
+              {selectedTime.toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+            </Text>
           </View>
-        </View>
-        <View className="flex-1 items-start rounded-[20px] border border-[#F2F2F5] overflow-hidden">
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          className="flex-1 items-start rounded-[20px] border border-[#F2F2F5] overflow-hidden"
+          onPress={() => setDatePickerVisibility(true)}
+        >
           <View className="flex-row items-center justify-center gap-[10px] p-[16px]">
-            <Image style={{ width: 25, height: 25 }} source={require('../../assets/Date.png')} />
-            <Text className="font-[700] text-[15px]">22.05.2025</Text>
+            <Image
+              style={{ width: 25, height: 25 }}
+              source={require("../../assets/Date.png")}
+            />
+            <Text className="font-[700] text-[15px]">
+              {selectedDate.toLocaleDateString()}
+            </Text>
           </View>
-        </View>
+        </TouchableOpacity>
       </View>
       <TouchableOpacity
         onPress={handleSubmit}
@@ -172,6 +226,22 @@ export const EventDetailScreen: React.FC = () => {
           <Text className="text-white">Создать пропуск</Text>
         )}
       </TouchableOpacity>
+      <DateTimePickerModal
+        isVisible={isDatePickerVisible}
+        mode="date"
+        themeVariant="light"
+        onConfirm={handleConfirmDate}
+        onCancel={() => setDatePickerVisibility(false)}
+      />
+
+      <DateTimePickerModal
+        isVisible={isTimePickerVisible}
+        mode="time"
+        is24Hour={true}
+        themeVariant="light"
+        onConfirm={handleConfirmTime}
+        onCancel={() => setTimePickerVisibility(false)}
+      />
     </ScreenWrapper>
   );
 };
@@ -179,80 +249,80 @@ export const EventDetailScreen: React.FC = () => {
 const styles = StyleSheet.create({
   openButton: {
     flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#00C0C9',
+    alignItems: "center",
+    backgroundColor: "#00C0C9",
     borderRadius: 20,
-    textAlign: 'center',
-    justifyContent: 'center',
+    textAlign: "center",
+    justifyContent: "center",
     paddingVertical: 10,
     paddingHorizontal: 10,
   },
   registerText: {
     fontSize: 14,
-    color: '#00000',
-    textAlign: 'center',
+    color: "#00000",
+    textAlign: "center",
   },
   registerButton: {
     flex: 1,
     maxWidth: 163,
-    alignSelf: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#F1F1F1',
+    alignSelf: "center",
+    justifyContent: "center",
+    backgroundColor: "#F1F1F1",
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 20,
   },
   type: {
     zIndex: 2,
-    alignSelf: 'flex-end',
-    backgroundColor: '#FFFFFF',
+    alignSelf: "flex-end",
+    backgroundColor: "#FFFFFF",
     paddingHorizontal: 13.5,
     paddingVertical: 7.5,
     borderRadius: 12,
     marginBottom: 8,
-    color: '#000',
-    position: 'absolute',
+    color: "#000",
+    position: "absolute",
     top: 40,
     right: 16,
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 10.473,
-    fontWeight: '500',
+    fontWeight: "500",
     lineHeight: 15.71,
     maxWidth: 150,
     letterSpacing: -0.299,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   buttonContainer: {
     gap: 6,
     marginTop: 2,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   openText: {
     fontSize: 14,
     lineHeight: 21,
     letterSpacing: -0.4,
-    color: '#FFFFFF',
-    textAlign: 'center',
+    color: "#FFFFFF",
+    textAlign: "center",
   },
   date: {
     fontSize: 14,
-    color: '#888',
+    color: "#888",
   },
   locationText: {
     fontSize: 15,
-    color: '#707579',
+    color: "#707579",
     lineHeight: 20,
     letterSpacing: -0.4,
   },
   location: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 10,
   },
   title: {
     fontSize: 17,
-    fontWeight: '600',
+    fontWeight: "600",
     lineHeight: 22,
     letterSpacing: -0.4,
   },
@@ -264,21 +334,21 @@ const styles = StyleSheet.create({
     height: 136,
   },
   image: {
-    height: '100%',
-    width: '100%',
+    height: "100%",
+    width: "100%",
   },
   imageLogo: {
-    position: 'absolute',
+    position: "absolute",
     top: 40,
     left: 23,
   },
   press: {
-    width: '100%',
+    width: "100%",
     paddingHorizontal: 5,
     paddingVertical: 20,
   },
   buttons: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 10,
   },
   button: {
@@ -286,60 +356,60 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 10,
     borderWidth: 0.8,
-    borderColor: '#F2F2F5',
-    alignSelf: 'flex-start',
+    borderColor: "#F2F2F5",
+    alignSelf: "flex-start",
   },
   buttonText: {
-    color: '#3E3E3E',
-    textAlign: 'center',
+    color: "#3E3E3E",
+    textAlign: "center",
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: "500",
     lineHeight: 22,
     letterSpacing: -0.4,
   },
   openButtonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
   },
   card: {
-    alignSelf: 'flex-start',
-    width: '100%',
-    height: 'auto',
+    alignSelf: "flex-start",
+    width: "100%",
+    height: "auto",
   },
   modal: {
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
     margin: 0,
-    width: '100%',
-    position: 'absolute',
+    width: "100%",
+    position: "absolute",
     bottom: 0,
   },
   modalContent: {
-    overflow: 'hidden',
-    width: '100%',
+    overflow: "hidden",
+    width: "100%",
     gap: 6,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     zIndex: 3,
-    height: '50%',
-    maxHeight: '50%',
-    shadowColor: '#000',
+    height: "50%",
+    maxHeight: "50%",
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: -1 },
     shadowOpacity: 0.25,
     shadowRadius: 7,
     elevation: 3,
   },
   textEvent: {
-    overflow: 'hidden',
-    color: '#707579',
-    fontFamily: 'Mont',
+    overflow: "hidden",
+    color: "#707579",
+    fontFamily: "Mont",
     fontSize: 12,
-    fontStyle: 'normal',
-    fontWeight: '600',
+    fontStyle: "normal",
+    fontWeight: "600",
     lineHeight: 20,
     letterSpacing: -0.4,
   },
   fullHeigth: {
-    height: 'auto',
-    maxHeight: 'auto',
+    height: "auto",
+    maxHeight: "auto",
   },
   wrapperContent: {
     gap: 6,
@@ -348,7 +418,7 @@ const styles = StyleSheet.create({
     height: 4,
     width: 36,
     borderRadius: 6,
-    backgroundColor: '#FFFFFF',
-    alignSelf: 'center',
+    backgroundColor: "#FFFFFF",
+    alignSelf: "center",
   },
 });
