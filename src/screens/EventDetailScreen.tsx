@@ -46,6 +46,7 @@ function formatDateToISO(inputDate: any) {
   throw new Error(`Неизвестный формат даты: ${inputDate}`);
 }
 
+import { useUserStore } from '@/app/stores/userStore';
 
 export const EventDetailScreen: React.FC = () => {
   const navigation = useTypeNavigation();
@@ -98,6 +99,8 @@ export const EventDetailScreen: React.FC = () => {
     setSelectedTime(time);
     setTimePickerVisibility(false);
   };
+
+  const { user } = useUserStore();
 
   return (
     <ScreenWrapper>
@@ -168,16 +171,14 @@ export const EventDetailScreen: React.FC = () => {
             style={{ width: 25, height: 25 }}
             source={require("../../assets/ProfileCreatePass.png")}
           />
-          <Text className="font-[700] text-[15px]">
-            Феоктистов Алексей Александрович
-          </Text>
+          <Text className="font-[700] text-[15px]">{user?.fio}</Text>
         </View>
         <View className="flex-row gap-[10px] items-center rounded-[20px] px-[16px] py-[14px] border border-[#F2F2F5] w-full">
           <Image
             style={{ width: 25, height: 25 }}
             source={require("../../assets/TelephoneCreatePass.png")}
           />
-          <Text className="font-[700] text-[15px]">+7 922 365 54 06</Text>
+          <Text className="font-[700] text-[15px]">{user?.phone}</Text>
         </View>
       </View>
 

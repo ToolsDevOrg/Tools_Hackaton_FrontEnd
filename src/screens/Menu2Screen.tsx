@@ -4,7 +4,6 @@ import { Events } from '@/components/PassComponents/Events/Events';
 import { Tabs } from '@/components/PassComponents/Tabs/Tabs';
 import { useTabStore } from '@/components/PassComponents/Tabs/tabs.store';
 import { ScreenWrapper } from '@/shared/ui';
-import { useState } from 'react';
 import { Image, Text, View } from 'react-native';
 
 export const Menu2Screen: React.FC = () => {
